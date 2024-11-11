@@ -13,6 +13,7 @@ def list_todos(request):
     return Response(serializer.data)
 
 
+
 @api_view(['POST'])
 def add_todo(request):
     serializer = TodoSerializer(data=request.data)
