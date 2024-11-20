@@ -6,4 +6,4 @@ class TodoSerializer(serializers.ModelSerializer):
         model=Todo
         fields='__all__'
 
-        
+    
