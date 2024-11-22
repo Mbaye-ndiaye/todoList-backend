@@ -76,7 +76,7 @@ CORS_ALLOW_HEADERS = [
     'x-csrf-token',
     'x-requested-with',
 ]
-# CORS_ORIGIN_ALLOW_ALL= True
+CORS_ORIGIN_ALLOW_ALL= True
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
