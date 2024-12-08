@@ -8,6 +8,11 @@ from rest_framework import status
 
 @api_view(['GET'])
 def list_todos(request):
+    """
+    Récupérer la liste de tous les todos.
+
+    Cette API retourne tous les éléments Todo dans la base de données sous forme de liste.
+    """
     todos = Todo.objects.all()
     serializer = TodoSerializer(todos, many=True)
     return Response(serializer.data)
@@ -16,6 +21,12 @@ def list_todos(request):
 
 @api_view(['POST'])
 def add_todo(request):
+    """
+    Ajouter un nouveau todo.
+
+    Cette API permet de créer un nouveau todo. Les données doivent être envoyées
+    dans le corps de la requête sous forme de JSON.
+    """
     serializer = TodoSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -25,6 +36,12 @@ def add_todo(request):
 
 @api_view(['PUT'])
 def update_todo(request, pk):
+    """
+    Mettre à jour un todo existant.
+
+    Cette API permet de mettre à jour un todo avec un identifiant spécifique (pk).
+    Le champ `completed` peut être mis à jour dans le corps de la requête.
+    """
     try:
         todo = Todo.objects.get(pk=pk)
     except todo.DoesNotExist:
@@ -35,11 +52,16 @@ def update_todo(request, pk):
         todo.save()
         serializer = TodoSerializer(todo)
         return Response(serializer.data)
-    return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['DELETE'])
 def delete_todo(request, pk):
+    """
+    Supprimer un todo existant.
+
+    Cette API permet de supprimer un todo avec un identifiant spécifique (pk).
+    """
     try:
         todo = Todo.objects.get(pk=pk)
     except todo.DoesNotExist:
